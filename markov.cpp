@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 std::string joinWords(const std::string words[], int startIndex, int count){
-    return 0;
+    return "";
 }
 
 int readWordsFromFile(std::string filename, std::string words[], int maxWords){
@@ -12,14 +12,14 @@ int readWordsFromFile(std::string filename, std::string words[], int maxWords){
 
 std::string getRandomSuffix(const std::string prefixes[], const std::string suffixes[],
 int chainSize, std::string currentPrefix){
-    return 0;
+    return "";
 }
 
 std::string getRandomPrefix(const std::string prefixes[], int chainSize){
-    return 0;
+    return "";
 }
 
 std::string generateText(const std::string prefixes[], const std::string suffixes[],
 int chainSize, int order, int numWords){
-    return 0;
+    return "";
 }
