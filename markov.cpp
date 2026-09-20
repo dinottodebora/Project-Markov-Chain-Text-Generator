@@ -33,17 +33,75 @@ int readWordsFromFile(std::string filename, std::string words[], int maxWords){
     return counter;
 }
 
-std::string getRandomSuffix(const std::string prefixes[], const std::string suffixes[],
-int chainSize, std::string currentPrefix){
+int buildMarkovChain(const std::string words[], int numWords, int order,
+    std::string prefixes[], std::string suffixes[], int maxChainSize) {
 
-    return "";
+    if (order < 1 || order > 3){
+        return 0;
+    }
+    if (numWords <= order){
+        return 0;
+    }
+    if (maxChainSize <= 0){
+        return 0;
+    }
+    
+    int count = 0;
+    int i = 0;
+    
+    while(i < numWords - order && count < maxChainSize){
+
+        std::string prefix = joinWords(words, i, order);//prexif is a string with my text
+        std::string suffix = words[i + order];
+        prefixes[count] = prefix;
+        suffixes[count] = suffix;
+        count++;
+        i++;
+    }
+
+
+    return count;
+}
+
+std::string getRandomSuffix(const std::string prefixes[], const std::string suffixes[],
+    int chainSize, std::string currentPrefix){
+//If prefixes = ["the", "cat", "the", "the"] and suffixes = ["cat", "sat", "dog", "bird"]
+//And we call getRandomSuffix with currentPrefix = "the":
+//- We find "the" at positions 0, 2, 3 → matchCount = 3
+//- pick = rand() % 3 might give us 0, 1, or 2
+//- We return suffixes[0], suffixes[2], or suffixes[3] → "cat", "dog", or "bird"
+
+    int matchCount = 0;    
+
+    for(int i = 0; i <= chainSize - 1; i++){
+        if (prefixes[i] == currentPrefix){
+            matchCount++;
+        }
+    }
+    if (matchCount == 0){
+        return "Empty string. Prefix not found.";
+   }
+   int pick = rand() % matchCount;
+   int seenMatches = 0;
+
+   for (int i = 0; i<= chainSize - 1; i++){
+        if (prefixes[i] == currentPrefix){
+            if (pick == seenMatches) {
+                return suffixes[i];
+            }
+
+            seenMatches++;
+        }
+   }
 }
 
 std::string getRandomPrefix(const std::string prefixes[], int chainSize){
-    return "";
+    if(chainSize <= 0){
+        return "";
+    }
+    int index = rand() % chainSize;
+    
+    return prefixes[index];
 }
 
-std::string generateText(const std::string prefixes[], const std::string suffixes[],
-int chainSize, int order, int numWords){
-    return "";
-}
+
