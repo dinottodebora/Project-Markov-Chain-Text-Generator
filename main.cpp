@@ -95,12 +95,13 @@ int main()
     int resultFileWordCount = readWordsFromFile(fileName, words, MAX_WORDS);
     if (resultFileWordCount == -1)
     {
-        std::cout << "We couldn't open your file" << std::endl;
+        std::cout << "We couldn't open your file." << std::endl;
         return 0;
     }
     if (resultFileWordCount <= order)
     {
         std::cout << "At least order + 1 training words are needed." << std::endl;
+        std::cout << "Your file might be empty or contain less words than order!" <<std::endl;
         return 0;
     }
 
@@ -129,6 +130,7 @@ int main()
     }
 
 }
+    //You can ignore everything under here! These are just notes and tests!!!!
     /*Step 8: Complete main()
     Now put it all together! Your main() should:
     1. Add srand(time(0)); at the very beginning (for randomness).
